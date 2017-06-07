@@ -10,17 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zhang on 2017/6/6.
+ * Created by zhangxs on 2017/6/6.
  */
-public class StudentDAOSpringJdbcImpl implements StudentDAO {
+public class StudentDAOSpringJdbcImpl implements StudentDAO{
 
     private JdbcTemplate jdbcTemplate;
-
     public List<Student> query() {
-        String sql = "select * from student";
         final List<Student> students = new ArrayList<Student>();
+        String sql = "select id,name,age from student";
+        jdbcTemplate.query(sql,new RowCallbackHandler(){
 
-        jdbcTemplate.query(sql, new RowCallbackHandler() {
             public void processRow(ResultSet resultSet) throws SQLException {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -50,5 +49,4 @@ public class StudentDAOSpringJdbcImpl implements StudentDAO {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 }
