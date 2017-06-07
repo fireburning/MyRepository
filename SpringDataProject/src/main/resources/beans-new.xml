@@ -22,12 +22,13 @@
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
         <property name="packagesToScan" value="com.test"/>
-        
+
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
@@ -38,9 +39,9 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-    
-    <jpa:repositories base-package="com.test" entity-manager-factory-ref="transactionManager"/>
-    
+
+    <jpa:repositories base-package="com.test" entity-manager-factory-ref="entityManagerFactory"/>
+
     <context:component-scan base-package="com.test"/>
 
 </beans>
