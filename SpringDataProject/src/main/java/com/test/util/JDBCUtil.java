@@ -6,43 +6,54 @@ import java.sql.*;
 import java.util.Properties;
 
 /**
- * Created by zhang on 2017/6/5.
+ * Created by zhangxs on 2017/6/5.
  */
 public class JDBCUtil {
 
-    public  static Connection getConnection() throws IOException, ClassNotFoundException, SQLException {
+    public static Connection getConnection() throws ClassNotFoundException, SQLException, IOException {
 
+//        最原始写法
+//        String url = "jdbc:mysql:///spring_data";
+//        String user = "root";
+//        String password = "123456";
+//        String driverClass = "com.mysql.jdbc.Driver";
+//
+//        Class.forName(driverClass);
+//        Connection connection = DriverManager.getConnection(url,user,password);
+
+//        配置文件写法
         InputStream inputStream = JDBCUtil.class.getClassLoader().getResourceAsStream("db.properties");
         Properties properties = new Properties();
         properties.load(inputStream);
 
-        String url = (String) properties.get("jdbc.url");
-        String user = (String) properties.get("jdbc.user");
-        String password = (String) properties.get("jdbc.password");
-        String driverClass = (String) properties.get("jdbc.driverClass");
+        String url = properties.getProperty("jdbc.url");
+        String user = properties.getProperty("jdbc.user");
+        String password = properties.getProperty("jdbc.password");
+        String driverClass = properties.getProperty("jdbc.driverClass");
 
         Class.forName(driverClass);
         Connection connection = DriverManager.getConnection(url,user,password);
+
         return connection;
     }
 
-    public static void release(ResultSet resultSet, Statement statement,Connection connection){
+    public static void release(ResultSet resultSet, Statement statement, Connection connection){
 
-        if(resultSet != null){
+        if( resultSet != null){
             try {
                 resultSet.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        if(statement != null){
+        if( statement != null){
             try {
                 statement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        if(connection != null){
+        if( connection != null){
             try {
                 connection.close();
             } catch (SQLException e) {

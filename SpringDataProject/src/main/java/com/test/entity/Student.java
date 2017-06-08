@@ -1,10 +1,9 @@
 package com.test.entity;
 
 /**
- * Created by zhang on 2017/6/6.
+ * Created by zhangxs on 2017/6/5.
  */
 public class Student {
-
     private int id;
     private String name;
     private int age;

@@ -10,17 +10,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
+
 /**
- * Created by zhang on 2017/6/6.
+ * Created by zhangxs on 2017/6/6.
  */
 public class DataSourceTest {
 
     private ApplicationContext ctx = null;
 
     @Before
-    public void setup(){
+    public void steup(){
         ctx = new ClassPathXmlApplicationContext("beans.xml");
-        System.out.println("setup");
+        System.out.println("steup");
     }
 
     @After
@@ -28,17 +29,18 @@ public class DataSourceTest {
         ctx = null;
         System.out.println("tearDown");
     }
+
     @Test
     public void testDataSource(){
-        System.out.println("testDataSource");
         DataSource dataSource = (DataSource)ctx.getBean("dataSource");
         Assert.assertNotNull(dataSource);
+        System.out.println("testDataSource");
     }
 
     @Test
     public void testJdbcTemplate(){
-        System.out.println("testJdbcTemplate");
         JdbcTemplate jdbcTemplate = (JdbcTemplate)ctx.getBean("jdbcTemplate");
         Assert.assertNotNull(jdbcTemplate);
+        System.out.println("testJdbcTemplate");
     }
 }
